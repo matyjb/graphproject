@@ -19,15 +19,7 @@ namespace graphproject
                                 {1, 0, 0, 1}, 
                                 {1, 1, 1, 0}};
 
-        //resources
-        private Text text = new Text("0", new Font("arial.ttf"));
-        private CircleShape circle = new CircleShape(20)
-        {
-            FillColor = Color.Black,
-            Origin = new Vector2f(17.5f,11.5f),
-            OutlineThickness = 4,
-            OutlineColor = Color.White
-        };
+        private Font font = new Font("arial.ttf");
 
         public SFMLcanvas()
         {
@@ -40,7 +32,7 @@ namespace graphproject
             renderLoopWorker.RunWorkerAsync(Handle);
             for (int i = 1; i <= graf.GetLength(0); i++)
             {
-                var p = new Vert(circle, text, new Vector2f(rnd.Next(20,Width-20), rnd.Next(20, Height - 20)), i);
+                var p = new Vert(font, new Vector2f(rnd.Next(20,Width-20), rnd.Next(20, Height - 20)), i);
                 wierzcholkiList.Add(p);
             }
         }
@@ -54,11 +46,8 @@ namespace graphproject
                 {
                     if (i != j && graf[i,j] == 1)
                     {
-                        Vertex[] lines = new Vertex[2];
-                        lines[0] = new Vertex(wierzcholkiList[i].Position);
-                        lines[1] = new Vertex(wierzcholkiList[j].Position);
-
-                        RendWind.Draw(lines,PrimitiveType.Lines);
+                        Line l = new Line(4, wierzcholkiList[i].Position, wierzcholkiList[j].Position);
+                        RendWind.Draw(l);
                     }
                 }
             }
@@ -73,6 +62,7 @@ namespace graphproject
         private void RenderLoopWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             RendWind = new RenderWindow((IntPtr) e.Argument);
+            RendWind.SetFramerateLimit(60);
             while (RendWind.IsOpen)
             {
                 RendWind.DispatchEvents();

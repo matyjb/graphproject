@@ -1,37 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 
 namespace graphproject
 {
     internal class Vert : Transformable, Drawable
     {
-        private readonly CircleShape circleShape;
-        private readonly Text text;
         private readonly int number;
+        private readonly Font font;
 
-        public Vert(CircleShape circle, Text text, Vector2f position, int number)
+        public Vert(Font font, Vector2f position, int number)
         {
-            circleShape = circle;
             Position = position;
             this.number = number;
-            this.text = text;
+            this.font = font;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            circleShape.Position = Position;
+            Text text = new Text("0", font);
+            CircleShape circle = new CircleShape(20)
+            {
+                FillColor = Color.Black,
+                Origin = new Vector2f(20, 20),
+                OutlineThickness = 4,
+                OutlineColor = Color.White
+            };
+            circle.Position = Position;
             text.DisplayedString = number.ToString();
-            text.Origin = new Vector2f(text.GetLocalBounds().Width/2.0f, text.GetLocalBounds().Height / 2.0f);
+            text.Origin = new Vector2f(text.GetLocalBounds().Width/1.6f, text.GetLocalBounds().Height / 1.15f);
             text.Position = Position;
 
-            target.Draw(circleShape, states);
+            target.Draw(circle, states);
             target.Draw(text, states);
+
+            circle.Dispose();
+            text.Dispose();
         }
     }
 }
