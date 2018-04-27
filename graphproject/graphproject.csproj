@@ -95,6 +95,7 @@
     <Compile Include="SFMLcanvas.Designer.cs">
       <DependentUpon>SFMLcanvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vert.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +111,9 @@
     <EmbeddedResource Include="SFMLcanvas.resx">
       <DependentUpon>SFMLcanvas.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="arial.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
