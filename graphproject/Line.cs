@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
+using System;
 
 namespace graphproject
 {
@@ -17,9 +13,18 @@ namespace graphproject
             Vector2f v = p1 - p2;
             float length = (float)Math.Sqrt(v.X * v.X + v.Y * v.Y);
             Size = new Vector2f(length, thickness);
-
-            float angle = (float) (Math.Atan(v.Y / v.X) * (180 / Math.PI));
-            if (v.X > 0) angle -= 180;
+            float angle;
+            if (v.X != 0)
+            {
+                angle = (float) (Math.Atan(v.Y / v.X) * (180 / Math.PI));
+                if (v.X > 0) angle -= 180;
+            }
+            else
+            {
+                if (v.Y > 0) angle = -90;
+                else if(v.Y < 0) angle = 90;
+                else angle = 0;
+            }
             Rotation = angle;
             Position = p1;
         }
