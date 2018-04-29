@@ -23,33 +23,36 @@ namespace graphproject
         public override void Draw(RenderTarget target, RenderStates states)
         {
             float triangleSizeM = 4.5f;
-            base.Draw(target, states);
-            if (direction != 0)
+            if (text.DisplayedString != "0")
             {
-                CircleShape triangle = new CircleShape(Size.Y * triangleSizeM, 3)
+                base.Draw(target, states);
+                if (direction != 0)
                 {
-                    Origin = new Vector2f(Size.Y * triangleSizeM, Size.Y * triangleSizeM),
-                    Position = Position - (Position - p2) / 5 * (direction == 1 ? 2 : 3),
-                    Rotation = direction == 1 ? -90 + Rotation : 90 + Rotation,
-                    OutlineColor = Color.White,
-                    OutlineThickness = Size.Y / 2,
-                    FillColor = Color.Black,
-                };
+                    CircleShape triangle = new CircleShape(Size.Y * triangleSizeM, 3)
+                    {
+                        Origin = new Vector2f(Size.Y * triangleSizeM, Size.Y * triangleSizeM),
+                        Position = Position - (Position - p2) / 5 * (direction == 1 ? 2 : 3),
+                        Rotation = direction == 1 ? -90 + Rotation : 90 + Rotation,
+                        OutlineColor = Color.White,
+                        OutlineThickness = Size.Y / 2,
+                        FillColor = Color.Black,
+                    };
 
-                target.Draw(triangle, states);
-                triangle.Dispose();
-                text.Position = Position - (Position - p2) / 5 * (direction == 1 ? 2 : 3);
-            }
-            else
-            {
-                text.Position = Position - (Position - p2) / 2;
+                    target.Draw(triangle, states);
+                    triangle.Dispose();
+                    text.Position = Position - (Position - p2) / 5 * (direction == 1 ? 2 : 3);
+                }
+                else
+                {
+                    text.Position = Position - (Position - p2) / 2;
 
-            }
+                }
             text.Origin = new Vector2f(text.GetLocalBounds().Width / 2f, text.GetLocalBounds().Height / 2f);
-                text.CharacterSize = (uint)Size.Y * 5;
-                text.Color = Color.Red;
-                target.Draw(text, states);
-                text.Dispose();
+            text.CharacterSize = (uint)Size.Y * 5;
+            text.Color = Color.Red;
+            target.Draw(text, states);
+            text.Dispose();
+            }
         }
     }
 }

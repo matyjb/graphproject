@@ -14,12 +14,25 @@ namespace graphproject
         private List<Vert> wierzcholkiList = new List<Vert>();
 
         //przykladowy graf
-        private int[,] graf = { {0, 15, 6, 100},
-                                {1, 0, 0, 1},
-                                {1, 0, 0, 1},
-                                {1, 1, 1, 0}};
+        //private int[,] graf =
+        //{
+        //    {0, 15, 6, 100},
+        //    {1, 0, 0, 1},
+        //    {1, 0, 0, 1},
+        //    {1, 0, 1, 0}
+        //};
 
-        private Font font = new Font("arial.ttf");
+        private int[,] graf =
+        {
+            {0, 12, 0, 14, 15, 16},
+            {12, 0, 0, 24,0, 0},
+            {0, 23, 0, 34, 35, 0},
+            {14, 24, 34, 0, 45, 46},
+            {0, 25, 0, 45, 0, 56},
+            {16, 0, 36, 466, 56, 0}
+        };
+
+private Font font = new Font("arial.ttf");
 
         public SFMLcanvas()
         {
@@ -57,12 +70,12 @@ namespace graphproject
                     if (i != j)
                     {
                         Vector2f v = wierzcholkiList[j].Position - wierzcholkiList[i].Position;
-                        f[i] += v/2 - v * 130 / (float)Math.Sqrt(v.X * v.X + v.Y * v.Y);
+                        f[i] += v - v * 350 / (float)Math.Sqrt(v.X * v.X + v.Y * v.Y);
                         if (f[i].X < 0) f[i] = new Vector2f(0, f[i].Y);
                         if (f[i].Y < 0) f[i] = new Vector2f(f[i].X, 0);
                     }
                 }
-                f[i] *= elapsedTime.AsSeconds()*3;
+                f[i] *= elapsedTime.AsSeconds()*2;
             }
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
@@ -79,7 +92,7 @@ namespace graphproject
             {
                 for (int j = i + 1; j < graf.GetLength(1); j++)
                 {
-                    if (graf[i, j] >= 1)
+                    if (graf[i, j] >= 1 || graf[j, i] >= 1)
                     {
                         //VertsConnectionLine l = new VertsConnectionLine(4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, 1, graf[i, j],font);
                         VertsConnectionLine l = new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font);

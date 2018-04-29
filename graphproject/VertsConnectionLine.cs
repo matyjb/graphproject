@@ -29,13 +29,13 @@ namespace graphproject
             {
                 if (valueToP1 == 0)
                 {
-                    LineWithArrow l1 = new LineWithArrow(thickness, p1, p2, 1, valueToP1, font);
+                    LineWithArrow l1 = new LineWithArrow(thickness, p1, p2, 2, valueToP2, font);
                     target.Draw(l1, states);
                     l1.Dispose();
                 }
                 else if (valueToP2 == 0)
                 {
-                    LineWithArrow l2 = new LineWithArrow(thickness, p1, p2, 2, valueToP2, font);
+                    LineWithArrow l2 = new LineWithArrow(thickness, p1, p2, 1, valueToP1, font);
                     target.Draw(l2, states);
                     l2.Dispose();
                 }
