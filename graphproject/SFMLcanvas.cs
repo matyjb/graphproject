@@ -49,6 +49,7 @@ namespace graphproject
                         //VertsConnectionLine l = new VertsConnectionLine(4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, 1, graf[i, j],font);
                         VertsConnectionLine l = new VertsConnectionLine(graf[j,i],graf[i,j],4, wierzcholkiList[i].Position, wierzcholkiList[j].Position,font);
                         RendWind.Draw(l);
+                        l.Dispose();
                     }
                 }
             }
@@ -67,6 +68,7 @@ namespace graphproject
             while (RendWind.IsOpen)
             {
                 RendWind.DispatchEvents();
+                //RendWind.Clear(new Color(BackColor.R, BackColor.G, BackColor.B));
                 RendWind.Clear(Color.Black);
 
                 DrawStuff();

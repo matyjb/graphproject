@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SFML.Graphics;
 using SFML.System;
-using SFML.Graphics;
 
 namespace graphproject
 {
@@ -44,12 +39,17 @@ namespace graphproject
                 target.Draw(triangle, states);
                 triangle.Dispose();
                 text.Position = Position - (Position - p2) / 5 * (direction == 1 ? 2 : 3);
-                text.Origin = new Vector2f(text.GetLocalBounds().Width / 2f, text.GetLocalBounds().Height / 2f);
+            }
+            else
+            {
+                text.Position = Position - (Position - p2) / 2;
+
+            }
+            text.Origin = new Vector2f(text.GetLocalBounds().Width / 2f, text.GetLocalBounds().Height / 2f);
                 text.CharacterSize = (uint)Size.Y * 5;
                 text.Color = Color.Red;
                 target.Draw(text, states);
                 text.Dispose();
-            }
         }
     }
 }
