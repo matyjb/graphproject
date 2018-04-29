@@ -7,9 +7,11 @@ namespace graphproject
     class Line : Transformable, Drawable
     {
         public Vector2f Size { get; set; }
+        public Vector2f p2;
 
         public Line(float thickness, Vector2f p1, Vector2f p2)
         {
+            this.p2 = p2;
             Vector2f v = p1 - p2;
             float length = (float)Math.Sqrt(v.X * v.X + v.Y * v.Y);
             Size = new Vector2f(length, thickness);
@@ -29,7 +31,7 @@ namespace graphproject
             Position = p1;
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
+        public virtual void Draw(RenderTarget target, RenderStates states)
         {
             RectangleShape rect = new RectangleShape(Size)
             {

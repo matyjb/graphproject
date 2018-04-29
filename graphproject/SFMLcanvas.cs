@@ -14,7 +14,7 @@ namespace graphproject
         private List<Vert> wierzcholkiList = new List<Vert>();
 
         //przykladowy graf
-        private int[,] graf = { {0, 1, 1, 1}, 
+        private int[,] graf = { {0, 15, 6, 100}, 
                                 {1, 0, 0, 1}, 
                                 {1, 0, 0, 1}, 
                                 {1, 1, 1, 0}};
@@ -42,11 +42,12 @@ namespace graphproject
             //rysowanie linii łączących
             for (int i = 0; i < graf.GetLength(0); i++)
             {
-                for (int j = 0; j < graf.GetLength(1); j++)
+                for (int j = i + 1; j < graf.GetLength(1); j++)
                 {
-                    if (i != j && graf[i,j] == 1)
+                    if (graf[i,j] >= 1)
                     {
-                        Line l = new Line(4, wierzcholkiList[i].Position, wierzcholkiList[j].Position);
+                        //VertsConnectionLine l = new VertsConnectionLine(4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, 1, graf[i, j],font);
+                        VertsConnectionLine l = new VertsConnectionLine(graf[j,i],graf[i,j],4, wierzcholkiList[i].Position, wierzcholkiList[j].Position,font);
                         RendWind.Draw(l);
                     }
                 }

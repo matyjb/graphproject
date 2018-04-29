@@ -88,6 +88,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Line.cs" />
+    <Compile Include="LineWithArrow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SFMLcanvas.cs">
@@ -97,6 +98,7 @@
       <DependentUpon>SFMLcanvas.cs</DependentUpon>
     </Compile>
     <Compile Include="Vert.cs" />
+    <Compile Include="VertsConnectionLine.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
