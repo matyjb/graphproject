@@ -11,7 +11,7 @@ namespace graphproject
     {
         private RenderWindow RendWind;
 
-        private List<Vert> wierzcholkiList = new List<Vert>();
+        private List<Vert> wierzcholkiList;
 
         //przykladowy graf
         //private int[,] graf =
@@ -32,7 +32,7 @@ namespace graphproject
             {16, 0, 36, 466, 56, 0}
         };
 
-private Font font = new Font("arial.ttf");
+        private Font font = new Font("arial.ttf");
 
         public SFMLcanvas()
         {
@@ -41,8 +41,12 @@ private Font font = new Font("arial.ttf");
 
         public void StartSLMF()
         {
+            if (!renderLoopWorker.IsBusy)
+            {   
+                renderLoopWorker.RunWorkerAsync(Handle);
+            }
+            wierzcholkiList = new List<Vert>();
             Random rnd = new Random();
-            renderLoopWorker.RunWorkerAsync(Handle);
             for (int i = 1; i <= graf.GetLength(0); i++)
             {
                 var p = new Vert(font, new Vector2f(rnd.Next(20, Width - 20), rnd.Next(20, Height - 20)), i);
@@ -52,7 +56,7 @@ private Font font = new Font("arial.ttf");
 
         private void UpdateVertsPositions(Time elapsedTime)
         {
-            Vector2f center = new Vector2f(0,0);
+            Vector2f center = new Vector2f(0, 0);
             foreach (var item in wierzcholkiList)
             {
                 center += item.Position;
@@ -75,7 +79,7 @@ private Font font = new Font("arial.ttf");
                         if (f[i].Y < 0) f[i] = new Vector2f(f[i].X, 0);
                     }
                 }
-                f[i] *= elapsedTime.AsSeconds()*2;
+                f[i] *= elapsedTime.AsSeconds() * 2;
             }
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
@@ -94,7 +98,6 @@ private Font font = new Font("arial.ttf");
                 {
                     if (graf[i, j] >= 1 || graf[j, i] >= 1)
                     {
-                        //VertsConnectionLine l = new VertsConnectionLine(4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, 1, graf[i, j],font);
                         VertsConnectionLine l = new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font);
                         RendWind.Draw(l);
                         l.Dispose();

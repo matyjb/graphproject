@@ -30,13 +30,14 @@
         {
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.sfmLcanvas1 = new graphproject.SFMLcanvas();
+            this.restart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(606, 12);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(318, 579);
+            this.richTextBox1.Size = new System.Drawing.Size(318, 481);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -47,11 +48,22 @@
             this.sfmLcanvas1.Size = new System.Drawing.Size(600, 600);
             this.sfmLcanvas1.TabIndex = 1;
             // 
+            // restart
+            // 
+            this.restart.Location = new System.Drawing.Point(606, 499);
+            this.restart.Name = "restart";
+            this.restart.Size = new System.Drawing.Size(318, 92);
+            this.restart.TabIndex = 2;
+            this.restart.Text = "restart";
+            this.restart.UseVisualStyleBackColor = true;
+            this.restart.Click += new System.EventHandler(this.restart_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 603);
+            this.Controls.Add(this.restart);
             this.Controls.Add(this.sfmLcanvas1);
             this.Controls.Add(this.richTextBox1);
             this.Name = "Form1";
@@ -65,6 +77,7 @@
         
         private System.Windows.Forms.RichTextBox richTextBox1;
         private SFMLcanvas sfmLcanvas1;
+        private System.Windows.Forms.Button restart;
     }
 }
 

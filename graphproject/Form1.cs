@@ -21,5 +21,10 @@ namespace graphproject
         {
 
         }
+
+        private void restart_Click(object sender, EventArgs e)
+        {
+            sfmLcanvas1.StartSLMF();
+        }
     }
 }
