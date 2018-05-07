@@ -7,6 +7,7 @@ namespace graphproject
     {
         private readonly int direction;
         private Text text;
+        public Color TextColor { get; set; }
         //0-bez kierunku, 1 do p1, 2 do p2
         public LineWithArrow(float thickness, Vector2f p1, Vector2f p2, int direction, int value, Font font) : base(thickness, p1, p2)
         {
@@ -19,6 +20,7 @@ namespace graphproject
                 this.direction = 0;
             }
             text = new Text(value.ToString(), font);
+            TextColor = Color.Red;
         }
         public override void Draw(RenderTarget target, RenderStates states)
         {
@@ -33,9 +35,9 @@ namespace graphproject
                         Origin = new Vector2f(Size.Y * triangleSizeM, Size.Y * triangleSizeM),
                         Position = Position - (Position - p2) / 5 * (direction == 1 ? 2 : 3),
                         Rotation = direction == 1 ? -90 + Rotation : 90 + Rotation,
-                        OutlineColor = Color.White,
                         OutlineThickness = Size.Y / 2,
-                        FillColor = Color.Black,
+                        FillColor = FillColor,
+                        OutlineColor = OutlineColor
                     };
 
                     target.Draw(triangle, states);
@@ -49,7 +51,7 @@ namespace graphproject
                 }
             text.Origin = new Vector2f(text.GetLocalBounds().Width / 2f, text.GetLocalBounds().Height / 2f);
             text.CharacterSize = (uint)Size.Y * 5;
-            text.Color = Color.Red;
+            text.Color = TextColor;
             target.Draw(text, states);
             text.Dispose();
             }

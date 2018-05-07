@@ -8,6 +8,8 @@ namespace graphproject
     {
         public Vector2f Size { get; set; }
         public Vector2f p2;
+        public Color FillColor { get; set; }
+        public Color OutlineColor { get; set; }
 
         public Line(float thickness, Vector2f p1, Vector2f p2)
         {
@@ -29,6 +31,8 @@ namespace graphproject
             }
             Rotation = angle;
             Position = p1;
+            FillColor = Color.White;
+            OutlineColor = Color.White;
         }
 
         public virtual void Draw(RenderTarget target, RenderStates states)
@@ -37,7 +41,9 @@ namespace graphproject
             {
                 Origin = new Vector2f(0, Size.Y/2),
                 Rotation = Rotation,
-                Position = Position
+                Position = Position,
+                FillColor = FillColor,
+                OutlineColor = OutlineColor
             };
             target.Draw(rect,states);
             rect.Dispose();

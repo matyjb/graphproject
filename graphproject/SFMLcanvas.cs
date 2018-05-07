@@ -33,11 +33,15 @@ namespace graphproject
         };
 
         private Font font = new Font("arial.ttf");
+        private Color color1;
+        private Color color2;
 
         public SFMLcanvas()
         {
             InitializeComponent();
-        }
+            color1 = Color.Black;
+            color2 = new Color(BackColor.R, BackColor.G, BackColor.B);
+    }
 
         public void StartSLMF()
         {
@@ -49,7 +53,7 @@ namespace graphproject
             Random rnd = new Random();
             for (int i = 1; i <= graf.GetLength(0); i++)
             {
-                var p = new Vert(font, new Vector2f(rnd.Next(20, Width - 20), rnd.Next(20, Height - 20)), i);
+                var p = new Vert(font, new Vector2f(rnd.Next(20, Width - 20), rnd.Next(20, Height - 20)), i){FillColor = color2, OutlineColor = color1, TextColor = color1 };
                 wierzcholkiList.Add(p);
             }
         }
@@ -98,7 +102,7 @@ namespace graphproject
                 {
                     if (graf[i, j] >= 1 || graf[j, i] >= 1)
                     {
-                        VertsConnectionLine l = new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font);
+                        VertsConnectionLine l = new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font){FillColor = color1, OutlineColor = color2};
                         RendWind.Draw(l);
                         l.Dispose();
                     }
@@ -122,8 +126,8 @@ namespace graphproject
                 Time elapsed = clock.ElapsedTime;
                 clock.Restart();
                 RendWind.DispatchEvents();
-                //RendWind.Clear(new Color(BackColor.R, BackColor.G, BackColor.B));
-                RendWind.Clear(Color.Black);
+                RendWind.Clear(new Color(BackColor.R, BackColor.G, BackColor.B));
+                //RendWind.Clear(Color.Black);
 
                 DrawStuff(elapsed);
 
