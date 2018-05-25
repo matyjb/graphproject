@@ -10,7 +10,7 @@ namespace Algorithms
     /// based on en.wikipedia.org/wiki/Edmonds%E2%80%93Karp_algorithm
     public class EdmondsKarp
     {
-        private int n = 0;
+        private int n;
 
         public int FindMaxFlow(
             int[,] capacityMatrix,
@@ -19,7 +19,7 @@ namespace Algorithms
             int sink,
             out int[,] legalFlows)
         {
-            int n = capacityMatrix.GetLength(0);
+            n = capacityMatrix.GetLength(0);
 
             int f = 0; // initial flow is 0
             legalFlows = new int[n, n]; // residual capacity from u to v is capacityMatrix[u,v] - legalFlows[u,v]
@@ -115,9 +115,17 @@ namespace Algorithms
             int[,] legal; // = new int[10,10];
 
             EdmondsKarp wynik = new EdmondsKarp();
-            wynik.FindMaxFlow(capa, sąsiedzi, 0, 8, out legal);
+            //wynik.FindMaxFlow(capa, sąsiedzi, 0, 8, out legal);
 
-            Console.WriteLine(wynik.FindMaxFlow(capa, sąsiedzi, 1, 8, out legal)); 
+            Console.WriteLine(wynik.FindMaxFlow(capa, sąsiedzi, 0, 8, out legal));
+            for (int i = 0; i < legal.GetLength(0); i++)
+            {
+                for (int j = 0; j < legal.GetLength(1); j++)
+                {
+                    Console.Write(legal[i,j]+",");
+                }
+                Console.WriteLine();
+            }
 
             Console.ReadKey();
         }
