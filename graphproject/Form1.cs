@@ -26,5 +26,17 @@ namespace graphproject
         {
             sfmLcanvas1.StartSLMF();
         }
+
+        private void bgenerate_Click(object sender, EventArgs e)
+        {
+            GenGraphWorker.RunWorkerAsync();
+        }
+
+        private void GenGraphWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Random rnd = new Random();
+            int[,] r = GraphGenerator.Generate(rnd.Next(5, 10), true);
+            sfmLcanvas1.Graf = r;
+        }
     }
 }

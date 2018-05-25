@@ -32,6 +32,16 @@ namespace graphproject
             {16, 0, 36, 466, 56, 0}
         };
 
+        public int[,] Graf
+        {
+            get { return graf; }
+            set
+            {
+                graf = value;
+                StartSLMF();
+            }
+        }
+
         private Font font = new Font("arial.ttf");
         private Color color1;
         private Color color2;
@@ -53,13 +63,14 @@ namespace graphproject
             Random rnd = new Random();
             for (int i = 1; i <= graf.GetLength(0); i++)
             {
-                var p = new Vert(font, new Vector2f(rnd.Next(20, Width - 20), rnd.Next(20, Height - 20)), i){FillColor = color2, OutlineColor = color1, TextColor = color1 };
+                var p = new Vert(font, new Vector2f(rnd.Next(20, Width - 20), rnd.Next(20, Height - 20)), i) { FillColor = color2, OutlineColor = color1, TextColor = color1 };
                 wierzcholkiList.Add(p);
             }
         }
 
         private void UpdateVertsPositions(Time elapsedTime)
         {
+            //update camera
             Vector2f center = new Vector2f(0, 0);
             foreach (var item in wierzcholkiList)
             {
@@ -69,6 +80,7 @@ namespace graphproject
             SFML.Graphics.View view = RendWind.DefaultView;
             view.Center = center;
             RendWind.SetView(view);
+            ///////
             List<Vector2f> f = new List<Vector2f>(wierzcholkiList.Count);
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
@@ -78,7 +90,7 @@ namespace graphproject
                     if (i != j)
                     {
                         Vector2f v = wierzcholkiList[j].Position - wierzcholkiList[i].Position;
-                        f[i] += v - v * 350 / (float)Math.Sqrt(v.X * v.X + v.Y * v.Y);
+                        f[i] += v - v * 350 / Normalize(v);
                         if (f[i].X < 0) f[i] = new Vector2f(0, f[i].Y);
                         if (f[i].Y < 0) f[i] = new Vector2f(f[i].X, 0);
                     }
@@ -87,7 +99,8 @@ namespace graphproject
             }
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
-                wierzcholkiList[i].Position += f[i];
+                if(Normalize(f[i]) > 1) //takie niby tarcie
+                    wierzcholkiList[i].Position += f[i];
             }
         }
 
@@ -102,7 +115,7 @@ namespace graphproject
                 {
                     if (graf[i, j] >= 1 || graf[j, i] >= 1)
                     {
-                        VertsConnectionLine l = new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font){FillColor = color1, OutlineColor = color2};
+                        VertsConnectionLine l = new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font) { FillColor = color1, OutlineColor = color2 };
                         RendWind.Draw(l);
                         l.Dispose();
                     }
@@ -151,6 +164,11 @@ namespace graphproject
         {
             if (RendWind == null)
                 base.OnPaintBackground(pevent);
+        }
+
+        private float Normalize(Vector2f v)
+        {
+            return (float)Math.Sqrt(v.X * v.X + v.Y * v.Y);
         }
     }
 }
