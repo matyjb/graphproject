@@ -29,14 +29,13 @@ namespace graphproject
 
         private void bgenerate_Click(object sender, EventArgs e)
         {
-            GenGraphWorker.RunWorkerAsync();
+            if(!GenGraphWorker.IsBusy)
+                GenGraphWorker.RunWorkerAsync();
         }
 
         private void GenGraphWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Random rnd = new Random();
-            int[,] r = GraphGenerator.Generate(rnd.Next(5, 10), true);
-            sfmLcanvas1.Graf = r;
+            sfmLcanvas1.Graf = GraphGenerator.Generate((int)NUPvcount.Value,CBdirected.Checked,CBmixed.Checked);
         }
     }
 }

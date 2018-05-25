@@ -15,6 +15,7 @@ namespace graphproject
         public Color FillColor { get; set; }
         public Color OutlineColor { get; set; }
         public Color TextColor { get; set; }
+        public bool Selected { get; set; }
 
         public VertsConnectionLine(int valueToP1, int valueToP2, float thickness, Vector2f p1, Vector2f p2, Font font)
         {
@@ -27,6 +28,7 @@ namespace graphproject
             this.thickness = thickness;
             this.valueToP1 = valueToP1;
             this.valueToP2 = valueToP2;
+            Selected = false;
         }
 
         public void Draw(RenderTarget target, RenderStates states)

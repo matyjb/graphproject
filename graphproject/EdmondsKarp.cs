@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace graphproject
 {
-    class EdmondsKarp
+    public class EdmondsKarp
     {
         private int n;
 
@@ -21,8 +21,7 @@ namespace graphproject
 
             while (true)
             {
-                int[] p;
-                int m = BreadthFirstSearch(capacityMatrix, neighbors, source, sink, legalFlows, out p);
+                int m = BreadthFirstSearch(capacityMatrix, neighbors, source, sink, legalFlows, out var p);
 
                 if (m == 0) break;
                 f += m;

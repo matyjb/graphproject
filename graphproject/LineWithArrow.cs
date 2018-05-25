@@ -36,7 +36,7 @@ namespace graphproject
                         Position = Position - (Position - p2) / 5 * (direction == 1 ? 2 : 3),
                         Rotation = direction == 1 ? -90 + Rotation : 90 + Rotation,
                         OutlineThickness = Size.Y / 2,
-                        FillColor = FillColor,
+                        FillColor = Selected ? Color.Yellow : FillColor,
                         OutlineColor = OutlineColor
                     };
 

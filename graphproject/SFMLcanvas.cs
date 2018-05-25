@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace graphproject
 {
@@ -51,12 +52,12 @@ namespace graphproject
             InitializeComponent();
             color1 = Color.Black;
             color2 = new Color(BackColor.R, BackColor.G, BackColor.B);
-    }
+        }
 
         public void StartSLMF()
         {
             if (!renderLoopWorker.IsBusy)
-            {   
+            {
                 renderLoopWorker.RunWorkerAsync(Handle);
             }
             wierzcholkiList = new List<Vert>();
@@ -81,6 +82,7 @@ namespace graphproject
             view.Center = center;
             RendWind.SetView(view);
             ///////
+            float timeMultiplier = 2;
             List<Vector2f> f = new List<Vector2f>(wierzcholkiList.Count);
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
@@ -95,11 +97,11 @@ namespace graphproject
                         if (f[i].Y < 0) f[i] = new Vector2f(f[i].X, 0);
                     }
                 }
-                f[i] *= elapsedTime.AsSeconds() * 2;
+                f[i] *= elapsedTime.AsSeconds() * timeMultiplier;
             }
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
-                if(Normalize(f[i]) > 1) //takie niby tarcie
+                if (Normalize(f[i]) > 0.3f) //takie niby tarcie
                     wierzcholkiList[i].Position += f[i];
             }
         }
@@ -131,8 +133,11 @@ namespace graphproject
 
         private void RenderLoopWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            RendWind = new RenderWindow((IntPtr)e.Argument);
+            ContextSettings contextSettings = new ContextSettings(){AntialiasingLevel = 8};
+            RendWind = new RenderWindow((IntPtr)e.Argument,contextSettings);
             RendWind.SetFramerateLimit(60);
+            
+
             Clock clock = new Clock();
             while (RendWind.IsOpen)
             {

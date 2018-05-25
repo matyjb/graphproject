@@ -10,6 +10,7 @@ namespace graphproject
         public Vector2f p2;
         public Color FillColor { get; set; }
         public Color OutlineColor { get; set; }
+        public bool Selected { get; set; }
 
         public Line(float thickness, Vector2f p1, Vector2f p2)
         {
@@ -33,6 +34,7 @@ namespace graphproject
             Position = p1;
             FillColor = Color.White;
             OutlineColor = Color.White;
+            Selected = false;
         }
 
         public virtual void Draw(RenderTarget target, RenderStates states)
@@ -42,7 +44,7 @@ namespace graphproject
                 Origin = new Vector2f(0, Size.Y/2),
                 Rotation = Rotation,
                 Position = Position,
-                FillColor = FillColor,
+                FillColor = Selected ? Color.Yellow : FillColor,
                 OutlineColor = OutlineColor
             };
             target.Draw(rect,states);
