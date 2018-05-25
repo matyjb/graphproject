@@ -37,7 +37,14 @@ namespace graphproject
 
         private void GenGraphWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            sfmLcanvas1.Graf = GraphGenerator.Generate((int)NUPvcount.Value,CBdirected.Checked,CBmixed.Checked);
+            try
+            {
+                sfmLcanvas1.Graf = GraphGenerator.Generate((int) NUPvcount.Value, CBdirected.Checked, CBmixed.Checked);
+            }
+            catch (Exception ex)
+            {
+                
+            }
             NUDsink.Maximum = NUDsource.Maximum = sfmLcanvas1.Graf.GetLength(0);
             NUDsource.Value = 1;
             NUDsink.Value = 1;
