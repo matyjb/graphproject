@@ -34,12 +34,23 @@
             this.bgenerate = new System.Windows.Forms.Button();
             this.GenGraphWorker = new System.ComponentModel.BackgroundWorker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.CBdirected = new System.Windows.Forms.CheckBox();
-            this.CBmixed = new System.Windows.Forms.CheckBox();
-            this.NUPvcount = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.NUPvcount = new System.Windows.Forms.NumericUpDown();
+            this.CBmixed = new System.Windows.Forms.CheckBox();
+            this.CBdirected = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.EKbutton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.NUDsink = new System.Windows.Forms.NumericUpDown();
+            this.NUDsource = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUPvcount)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDsink)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDsource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -52,9 +63,12 @@
             // 
             // sfmLcanvas1
             // 
+            this.sfmLcanvas1.EdmondsKarpMode = true;
             this.sfmLcanvas1.Location = new System.Drawing.Point(0, 2);
             this.sfmLcanvas1.Name = "sfmLcanvas1";
+            this.sfmLcanvas1.Sink = 4;
             this.sfmLcanvas1.Size = new System.Drawing.Size(600, 600);
+            this.sfmLcanvas1.Source = 1;
             this.sfmLcanvas1.TabIndex = 1;
             // 
             // restart
@@ -95,25 +109,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Generator Grafów";
             // 
-            // CBdirected
+            // label1
             // 
-            this.CBdirected.AutoSize = true;
-            this.CBdirected.Location = new System.Drawing.Point(7, 20);
-            this.CBdirected.Name = "CBdirected";
-            this.CBdirected.Size = new System.Drawing.Size(81, 17);
-            this.CBdirected.TabIndex = 0;
-            this.CBdirected.Text = "Skierowany";
-            this.CBdirected.UseVisualStyleBackColor = true;
-            // 
-            // CBmixed
-            // 
-            this.CBmixed.AutoSize = true;
-            this.CBmixed.Location = new System.Drawing.Point(7, 44);
-            this.CBmixed.Name = "CBmixed";
-            this.CBmixed.Size = new System.Drawing.Size(70, 17);
-            this.CBmixed.TabIndex = 1;
-            this.CBmixed.Text = "Mieszany";
-            this.CBmixed.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(125, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "ilość V";
             // 
             // NUPvcount
             // 
@@ -137,20 +140,97 @@
             0,
             0});
             // 
-            // label1
+            // CBmixed
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(125, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "ilość V";
+            this.CBmixed.AutoSize = true;
+            this.CBmixed.Location = new System.Drawing.Point(7, 44);
+            this.CBmixed.Name = "CBmixed";
+            this.CBmixed.Size = new System.Drawing.Size(70, 17);
+            this.CBmixed.TabIndex = 1;
+            this.CBmixed.Text = "Mieszany";
+            this.CBmixed.UseVisualStyleBackColor = true;
+            // 
+            // CBdirected
+            // 
+            this.CBdirected.AutoSize = true;
+            this.CBdirected.Location = new System.Drawing.Point(7, 20);
+            this.CBdirected.Name = "CBdirected";
+            this.CBdirected.Size = new System.Drawing.Size(81, 17);
+            this.CBdirected.TabIndex = 0;
+            this.CBdirected.Text = "Skierowany";
+            this.CBdirected.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.EKbutton);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.NUDsink);
+            this.groupBox2.Controls.Add(this.NUDsource);
+            this.groupBox2.Location = new System.Drawing.Point(813, 425);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(111, 119);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "EdmondsKarp";
+            // 
+            // EKbutton
+            // 
+            this.EKbutton.Location = new System.Drawing.Point(7, 73);
+            this.EKbutton.Name = "EKbutton";
+            this.EKbutton.Size = new System.Drawing.Size(98, 35);
+            this.EKbutton.TabIndex = 4;
+            this.EKbutton.Text = "Pokaż";
+            this.EKbutton.UseVisualStyleBackColor = true;
+            this.EKbutton.Click += new System.EventHandler(this.EKbutton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(52, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "sink";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(52, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "source";
+            // 
+            // NUDsink
+            // 
+            this.NUDsink.Location = new System.Drawing.Point(7, 46);
+            this.NUDsink.Name = "NUDsink";
+            this.NUDsink.Size = new System.Drawing.Size(38, 20);
+            this.NUDsink.TabIndex = 1;
+            this.NUDsink.ValueChanged += new System.EventHandler(this.NUDsink_ValueChanged);
+            // 
+            // NUDsource
+            // 
+            this.NUDsource.Location = new System.Drawing.Point(7, 19);
+            this.NUDsource.Name = "NUDsource";
+            this.NUDsource.Size = new System.Drawing.Size(38, 20);
+            this.NUDsource.TabIndex = 0;
+            this.NUDsource.ValueChanged += new System.EventHandler(this.NUDsource_ValueChanged);
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(7, 46);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(38, 20);
+            this.numericUpDown2.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 603);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.restart);
             this.Controls.Add(this.sfmLcanvas1);
@@ -161,6 +241,11 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUPvcount)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDsink)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDsource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -177,6 +262,13 @@
         private System.Windows.Forms.NumericUpDown NUPvcount;
         private System.Windows.Forms.CheckBox CBmixed;
         private System.Windows.Forms.CheckBox CBdirected;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown NUDsink;
+        private System.Windows.Forms.NumericUpDown NUDsource;
+        private System.Windows.Forms.Button EKbutton;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
 

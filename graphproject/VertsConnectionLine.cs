@@ -37,13 +37,13 @@ namespace graphproject
             {
                 if (valueToP1 == 0)
                 {
-                    LineWithArrow l1 = new LineWithArrow(thickness, p1, p2, 2, valueToP2, font){OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor};
+                    LineWithArrow l1 = new LineWithArrow(thickness, p1, p2, 2, valueToP2, font){OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor, Selected = Selected};
                     target.Draw(l1, states);
                     l1.Dispose();
                 }
                 else if (valueToP2 == 0)
                 {
-                    LineWithArrow l2 = new LineWithArrow(thickness, p1, p2, 1, valueToP1, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor };
+                    LineWithArrow l2 = new LineWithArrow(thickness, p1, p2, 1, valueToP1, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor, Selected = Selected };
                     target.Draw(l2, states);
                     l2.Dispose();
                 }
@@ -52,10 +52,10 @@ namespace graphproject
                     Vector2f v = p1 - p2;
                     float my = (float)(thickness*3 / Math.Sqrt(1 + v.Y * v.Y / v.X / v.X));
                     Vector2f m = new Vector2f(-(v.Y/v.X)*my,my);
-                    LineWithArrow l1 = new LineWithArrow(thickness, p1 + m, p2 + m, 1, valueToP1, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor };
+                    LineWithArrow l1 = new LineWithArrow(thickness, p1 + m, p2 + m, 1, valueToP1, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor, Selected = Selected };
                     target.Draw(l1, states);
                     l1.Dispose();
-                    LineWithArrow l2 = new LineWithArrow(thickness, p1 - m, p2 - m, 2, valueToP2, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor };
+                    LineWithArrow l2 = new LineWithArrow(thickness, p1 - m, p2 - m, 2, valueToP2, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor, Selected = Selected };
                     target.Draw(l2, states);
                     l2.Dispose();
                 }
@@ -64,7 +64,7 @@ namespace graphproject
             {
                 if (valueToP1 != 0)
                 {
-                    LineWithArrow l1 = new LineWithArrow(thickness, p1, p2, 0, valueToP1, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor };
+                    LineWithArrow l1 = new LineWithArrow(thickness, p1, p2, 0, valueToP1, font) { OutlineColor = OutlineColor, FillColor = FillColor, TextColor = TextColor, Selected = Selected };
                     target.Draw(l1, states);
                     l1.Dispose();
                 }

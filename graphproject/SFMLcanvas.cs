@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using SFML.Graphics;
 using SFML.System;
@@ -13,6 +14,31 @@ namespace graphproject
         private RenderWindow RendWind;
 
         private List<Vert> wierzcholkiList;
+
+        private int source;
+        private int sink;
+
+        public int Source
+        {
+            get { return source; }
+            set
+            {
+                source = value;
+                UpdateEdmondsKarp();
+            }
+        }
+        public int Sink
+        {
+            get { return sink; }
+            set
+            {
+                sink = value;
+                UpdateEdmondsKarp();
+            }
+        }
+
+        public bool EdmondsKarpMode { get; set; }
+        public int[,] LegalFlows { get; set; }
 
         //przykladowy graf
         //private int[,] graf =
@@ -52,6 +78,9 @@ namespace graphproject
             InitializeComponent();
             color1 = Color.Black;
             color2 = new Color(BackColor.R, BackColor.G, BackColor.B);
+            EdmondsKarpMode = true;
+            Source = 1;
+            Sink = 4;
         }
 
         public void StartSLMF()
@@ -67,11 +96,18 @@ namespace graphproject
                 var p = new Vert(font, new Vector2f(rnd.Next(20, Width - 20), rnd.Next(20, Height - 20)), i) { FillColor = color2, OutlineColor = color1, TextColor = color1 };
                 wierzcholkiList.Add(p);
             }
+            UpdateEdmondsKarp();
         }
 
-        private void UpdateVertsPositions(Time elapsedTime)
+        private void UpdateEdmondsKarp()
         {
-            //update camera
+            EdmondsKarp ek = new EdmondsKarp();
+            int wynik = ek.FindMaxFlow(Graf, NeighborsList(), Source, Sink, out var l);
+            LegalFlows = l;
+        }
+
+        private void UpdateCamera()
+        {
             Vector2f center = new Vector2f(0, 0);
             foreach (var item in wierzcholkiList)
             {
@@ -81,7 +117,9 @@ namespace graphproject
             SFML.Graphics.View view = RendWind.DefaultView;
             view.Center = center;
             RendWind.SetView(view);
-            ///////
+        }
+        private void UpdateVertsPositions(Time elapsedTime)
+        {
             float timeMultiplier = 2;
             List<Vector2f> f = new List<Vector2f>(wierzcholkiList.Count);
             for (int i = 0; i < wierzcholkiList.Count; i++)
@@ -106,20 +144,57 @@ namespace graphproject
             }
         }
 
-        private void DrawStuff(Time elapsedTime)
+        private void DrawStuff()
         {
-            UpdateVertsPositions(elapsedTime);
-
-            //rysowanie linii łączących
-            for (int i = 0; i < graf.GetLength(0); i++)
+            if (EdmondsKarpMode)
             {
-                for (int j = i + 1; j < graf.GetLength(1); j++)
+                //rysowanie linii łączących - tryb edmonda
+                for (int i = 0; i < graf.GetLength(0); i++)
                 {
-                    if (graf[i, j] >= 1 || graf[j, i] >= 1)
+                    for (int j = i + 1; j < graf.GetLength(1); j++)
                     {
-                        VertsConnectionLine l = new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font) { FillColor = color1, OutlineColor = color2 };
-                        RendWind.Draw(l);
-                        l.Dispose();
+                        if (graf[i, j] != 0 || graf[j, i] != 0)
+                        {
+                            VertsConnectionLine l =
+                                new VertsConnectionLine(LegalFlows[j, i] == 0 ? graf[j, i] : LegalFlows[j, i] < 0 ? 0 : LegalFlows[j, i], LegalFlows[i, j] == 0 ? graf[i, j] : LegalFlows[i, j] < 0 ? 0 : LegalFlows[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font)
+                                { FillColor = color1, OutlineColor = color2, Selected = (LegalFlows[i, j] != 0 || LegalFlows[i, j] != 0) };
+                            RendWind.Draw(l);
+                            l.Dispose();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //rysowanie linii łączących - tryb zwykly
+                for (int i = 0; i < graf.GetLength(0); i++)
+                {
+                    for (int j = i + 1; j < graf.GetLength(1); j++)
+                    {
+                        if (graf[i, j] != 0 || graf[j, i] != 0)
+                        {
+                            VertsConnectionLine l =
+                                new VertsConnectionLine(graf[j, i], graf[i, j], 4, wierzcholkiList[i].Position, wierzcholkiList[j].Position, font)
+                                { FillColor = color1, OutlineColor = color2 };
+                            RendWind.Draw(l);
+                            l.Dispose();
+                        }
+                    }
+                }
+            }
+
+            //przypisywanie kolorow sink i source
+            for (int i = 0; i < wierzcholkiList.Count; i++)
+            {
+                wierzcholkiList[i].IsSink = i == Sink && EdmondsKarpMode;
+                wierzcholkiList[i].IsSource = i == Source && EdmondsKarpMode;
+                wierzcholkiList[i].Selected = false;
+                for (int j = 0; j < LegalFlows.GetLength(1); j++)
+                {
+                    if (LegalFlows[i, j] != 0)
+                    {
+                        wierzcholkiList[i].Selected = EdmondsKarpMode;
+                        break;
                     }
                 }
             }
@@ -133,10 +208,10 @@ namespace graphproject
 
         private void RenderLoopWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            ContextSettings contextSettings = new ContextSettings(){AntialiasingLevel = 8};
-            RendWind = new RenderWindow((IntPtr)e.Argument,contextSettings);
+            ContextSettings contextSettings = new ContextSettings() { AntialiasingLevel = 8 };
+            RendWind = new RenderWindow((IntPtr)e.Argument, contextSettings);
             RendWind.SetFramerateLimit(60);
-            
+
 
             Clock clock = new Clock();
             while (RendWind.IsOpen)
@@ -147,7 +222,9 @@ namespace graphproject
                 RendWind.Clear(new Color(BackColor.R, BackColor.G, BackColor.B));
                 //RendWind.Clear(Color.Black);
 
-                DrawStuff(elapsed);
+                UpdateVertsPositions(elapsed);
+                UpdateCamera();
+                DrawStuff();
 
                 RendWind.Display();
 
@@ -174,6 +251,26 @@ namespace graphproject
         private float Normalize(Vector2f v)
         {
             return (float)Math.Sqrt(v.X * v.X + v.Y * v.Y);
+        }
+
+        private Dictionary<int, List<int>> NeighborsList()
+        {
+            Dictionary<int, List<int>> result = new Dictionary<int, List<int>>();
+
+            for (int i = 0; i < Graf.GetLength(0); i++)
+            {
+                List<int> list = new List<int>();
+                for (int j = 0; j < Graf.GetLength(1); j++)
+                {
+                    if (Graf[i, j] != 0)
+                    {
+                        list.Add(j);
+                    }
+                }
+                result.Add(i,list);
+            }
+
+            return result;
         }
     }
 }
