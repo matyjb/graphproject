@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rLog = new System.Windows.Forms.RichTextBox();
             this.sfmLcanvas1 = new graphproject.SFMLcanvas();
             this.restart = new System.Windows.Forms.Button();
             this.bgenerate = new System.Windows.Forms.Button();
@@ -45,6 +45,9 @@
             this.NUDsink = new System.Windows.Forms.NumericUpDown();
             this.NUDsource = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.bClearLog = new System.Windows.Forms.Button();
+            this.bSaveLog = new System.Windows.Forms.Button();
+            this.rTBLog = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUPvcount)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -53,13 +56,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // rLog
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(606, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(318, 316);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.rLog.Location = new System.Drawing.Point(606, 12);
+            this.rLog.Name = "rLog";
+            this.rLog.Size = new System.Drawing.Size(318, 136);
+            this.rLog.TabIndex = 0;
+            this.rLog.Text = "";
             // 
             // sfmLcanvas1
             // 
@@ -220,16 +223,46 @@
             this.numericUpDown2.Size = new System.Drawing.Size(38, 20);
             this.numericUpDown2.TabIndex = 1;
             // 
+            // bClearLog
+            // 
+            this.bClearLog.Location = new System.Drawing.Point(608, 154);
+            this.bClearLog.Name = "bClearLog";
+            this.bClearLog.Size = new System.Drawing.Size(161, 23);
+            this.bClearLog.TabIndex = 6;
+            this.bClearLog.Text = "Wyczyść log";
+            this.bClearLog.UseVisualStyleBackColor = true;
+            this.bClearLog.Click += new System.EventHandler(this.bClearLog_Click);
+            // 
+            // bSaveLog
+            // 
+            this.bSaveLog.Location = new System.Drawing.Point(775, 154);
+            this.bSaveLog.Name = "bSaveLog";
+            this.bSaveLog.Size = new System.Drawing.Size(149, 23);
+            this.bSaveLog.TabIndex = 7;
+            this.bSaveLog.Text = "Zapisz log do pliku";
+            this.bSaveLog.UseVisualStyleBackColor = true;
+            this.bSaveLog.Click += new System.EventHandler(this.bSaveLog_Click);
+            // 
+            // rTBLog
+            // 
+            this.rTBLog.Location = new System.Drawing.Point(606, 12);
+            this.rTBLog.Name = "rTBLog";
+            this.rTBLog.Size = new System.Drawing.Size(318, 136);
+            this.rTBLog.TabIndex = 0;
+            this.rTBLog.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 603);
+            this.Controls.Add(this.bSaveLog);
+            this.Controls.Add(this.bClearLog);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.restart);
             this.Controls.Add(this.sfmLcanvas1);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rLog);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -247,7 +280,7 @@
 
         #endregion
         
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rLog;
         private SFMLcanvas sfmLcanvas1;
         private System.Windows.Forms.Button restart;
         private System.Windows.Forms.Button bgenerate;
@@ -264,6 +297,9 @@
         private System.Windows.Forms.NumericUpDown NUDsource;
         private System.Windows.Forms.Button EKbutton;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Button bClearLog;
+        private System.Windows.Forms.Button bSaveLog;
+        private System.Windows.Forms.RichTextBox rTBLog;
     }
 }
 

@@ -36,9 +36,12 @@ namespace graphproject
                 UpdateEdmondsKarp();
             }
         }
-
+        
         public bool EdmondsKarpMode { get; set; }
         public int[,] LegalFlows { get; set; }
+        public int MaxFlow { get; set; }
+        public Time EdmondsKarpAlgoRunTime { get; set; }
+        public string Log { get; set; } = "";
 
         //przykladowy graf
         //private int[,] graf =
@@ -69,7 +72,7 @@ namespace graphproject
             }
         }
 
-        private Font font = new Font("arial.ttf");
+        private Font font;
         private Color color1;
         private Color color2;
 
@@ -78,7 +81,8 @@ namespace graphproject
             InitializeComponent();
             color1 = Color.Black;
             color2 = new Color(BackColor.R, BackColor.G, BackColor.B);
-            EdmondsKarpMode = true;
+            font = new Font("arial.ttf");
+            EdmondsKarpMode = false;
             Source = 1;
             Sink = 4;
         }
@@ -102,8 +106,29 @@ namespace graphproject
         private void UpdateEdmondsKarp()
         {
             EdmondsKarp ek = new EdmondsKarp();
-            int wynik = ek.FindMaxFlow(Graf, NeighborsList(), Source, Sink, out var l);
+            Clock t = new Clock();
+            t.Restart();
+            MaxFlow = ek.FindMaxFlow(Graf, NeighborsList(), Source, Sink, out var l);
+            EdmondsKarpAlgoRunTime = t.ElapsedTime;
             LegalFlows = l;
+            //log
+            //liczenie połączeń
+            if(Sink == Source) return;
+            int sum = 0;
+            for (int i = 0; i < Graf.GetLength(0); i++)
+            {
+                for (int j = i + 1; j < Graf.GetLength(1); j++)
+                {
+                    if (Graf[i, j] != 0 || Graf[j, i] != 0)
+                        sum++;
+                }
+            }
+            Log = "";
+            Log += "Maksymalny przepływ: " + MaxFlow + Environment.NewLine;
+            Log += "Ilość wierzchołków: " + Graf.GetLength(0) + Environment.NewLine;
+            Log += "Ilość połączeń: " + sum + Environment.NewLine;
+            Log += "Czas wykonania: " + EdmondsKarpAlgoRunTime.AsMicroseconds() + " mikrosekund" + Environment.NewLine;
+            Log += "============================" + Environment.NewLine;
         }
 
         private void UpdateCamera()
@@ -135,7 +160,7 @@ namespace graphproject
         }
         private void UpdateVertsPositions(Time elapsedTime)
         {
-            float timeMultiplier = 2;
+            float timeMultiplier = 5;
             
             List<Vector2f> f = new List<Vector2f>(wierzcholkiList.Count);
             for (int i = 0; i < wierzcholkiList.Count; i++)
@@ -147,11 +172,11 @@ namespace graphproject
                     {
                         Vector2f v = wierzcholkiList[j].Position - wierzcholkiList[i].Position;
                         //odpychanie wierzcholkow
-                        f[i] += v - v * (25 * wierzcholkiList.Count + 200) / Normalize(v);
+                        f[i] += v - v * (30 * wierzcholkiList.Count + 160) / Normalize(v);
                         //przyciaganie polaczonych wierzcholkow
                         if (Graf[i, j] != 0 || Graf[j, i] != 0)
                         {
-                            f[i] += (- v + v * (25 * wierzcholkiList.Count + 200) / Normalize(v))/2;
+                            f[i] -= f[i] / 1.8f;
                         }
                     }
                 }
