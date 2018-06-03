@@ -136,6 +136,7 @@ namespace graphproject
         private void UpdateVertsPositions(Time elapsedTime)
         {
             float timeMultiplier = 2;
+            
             List<Vector2f> f = new List<Vector2f>(wierzcholkiList.Count);
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
@@ -145,16 +146,21 @@ namespace graphproject
                     if (i != j)
                     {
                         Vector2f v = wierzcholkiList[j].Position - wierzcholkiList[i].Position;
-                        f[i] += v - v * 350 / Normalize(v);
-                        if (f[i].X < 0) f[i] = new Vector2f(0, f[i].Y);
-                        if (f[i].Y < 0) f[i] = new Vector2f(f[i].X, 0);
+                        //odpychanie wierzcholkow
+                        f[i] += v - v * (25 * wierzcholkiList.Count + 200) / Normalize(v);
+                        //przyciaganie polaczonych wierzcholkow
+                        if (Graf[i, j] != 0 || Graf[j, i] != 0)
+                        {
+                            f[i] += (- v + v * (25 * wierzcholkiList.Count + 200) / Normalize(v))/2;
+                        }
                     }
                 }
                 f[i] *= elapsedTime.AsSeconds() * timeMultiplier;
             }
+
             for (int i = 0; i < wierzcholkiList.Count; i++)
             {
-                if (Normalize(f[i]) > 0.3f) //takie niby tarcie
+                //if (Normalize(f[i]) > 0.3f) //takie niby tarcie
                     wierzcholkiList[i].Position += f[i];
             }
         }

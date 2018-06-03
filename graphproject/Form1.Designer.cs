@@ -121,11 +121,6 @@
             // NUPvcount
             // 
             this.NUPvcount.Location = new System.Drawing.Point(128, 20);
-            this.NUPvcount.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
             this.NUPvcount.Minimum = new decimal(new int[] {
             4,
             0,
