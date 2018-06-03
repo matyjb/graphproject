@@ -108,14 +108,29 @@ namespace graphproject
 
         private void UpdateCamera()
         {
+            SFML.Graphics.View view = RendWind.DefaultView;
+            //centrowanie kamery
             Vector2f center = new Vector2f(0, 0);
             foreach (var item in wierzcholkiList)
             {
                 center += item.Position;
             }
             center /= wierzcholkiList.Count;
-            SFML.Graphics.View view = RendWind.DefaultView;
             view.Center = center;
+            //zoomowanie kamery
+            Vector2f maxxy = new Vector2f(0,0);
+            for (int i = 0; i < wierzcholkiList.Count; i++)
+            {
+                    Vector2f n = wierzcholkiList[i].Position - center;
+                    n = new Vector2f(Math.Abs(n.X),Math.Abs(n.Y));
+                    if (n.X > maxxy.X) maxxy.X = n.X;
+                    if (n.Y > maxxy.Y) maxxy.Y = n.Y;
+            }
+            maxxy += new Vector2f(40,40);
+            maxxy *= 2;
+            float zoomfactor = (maxxy.X > maxxy.Y) ? maxxy.X / view.Size.X : maxxy.Y / view.Size.Y;
+            view.Zoom(zoomfactor);
+
             RendWind.SetView(view);
         }
         private void UpdateVertsPositions(Time elapsedTime)

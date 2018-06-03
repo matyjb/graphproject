@@ -19,7 +19,7 @@ namespace graphproject
                 vc++;
                 for (int u = v; u < n; u++)
                 {
-                    if (arr[v, u] != 0) //jest sąsiadem v
+                    if (arr[v, u] != 0 || arr[u, v] != 0) //jest sąsiadem v
                     {
                         if (!visited[u])
                         {

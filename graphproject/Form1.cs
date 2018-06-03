@@ -37,6 +37,7 @@ namespace graphproject
 
         private void GenGraphWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            bgenerate.Enabled = false;
             try
             {
                 sfmLcanvas1.Graf = GraphGenerator.Generate((int) NUPvcount.Value, CBdirected.Checked, CBmixed.Checked);
@@ -49,6 +50,7 @@ namespace graphproject
             NUDsource.Value = 1;
             NUDsink.Value = 1;
             sfmLcanvas1.EdmondsKarpMode = false;
+            bgenerate.Enabled = true;
         }
 
         private void EKbutton_Click(object sender, EventArgs e)
