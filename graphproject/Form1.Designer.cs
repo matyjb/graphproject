@@ -48,19 +48,27 @@
             this.bClearLog = new System.Windows.Forms.Button();
             this.bSaveLog = new System.Windows.Forms.Button();
             this.rTBLog = new System.Windows.Forms.RichTextBox();
+            this.bAddToLog = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rCustomGraph = new System.Windows.Forms.RichTextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.bLoadGraph = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUPvcount)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDsink)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDsource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // rLog
             // 
-            this.rLog.Location = new System.Drawing.Point(606, 12);
+            this.rLog.Location = new System.Drawing.Point(7, 19);
             this.rLog.Name = "rLog";
-            this.rLog.Size = new System.Drawing.Size(318, 136);
+            this.rLog.Size = new System.Drawing.Size(305, 91);
             this.rLog.TabIndex = 0;
             this.rLog.Text = "";
             // 
@@ -68,6 +76,9 @@
             // 
             this.sfmLcanvas1.EdmondsKarpMode = true;
             this.sfmLcanvas1.Location = new System.Drawing.Point(0, 2);
+            this.sfmLcanvas1.Log = "Maksymalny przepływ: 36\r\nIlość wierzchołków: 6\r\nIlość połączeń: 13\r\n=============" +
+    "===============\r\n";
+            this.sfmLcanvas1.MaxFlow = 36;
             this.sfmLcanvas1.Name = "sfmLcanvas1";
             this.sfmLcanvas1.Sink = 4;
             this.sfmLcanvas1.Size = new System.Drawing.Size(600, 600);
@@ -225,9 +236,9 @@
             // 
             // bClearLog
             // 
-            this.bClearLog.Location = new System.Drawing.Point(608, 154);
+            this.bClearLog.Location = new System.Drawing.Point(7, 116);
             this.bClearLog.Name = "bClearLog";
-            this.bClearLog.Size = new System.Drawing.Size(161, 23);
+            this.bClearLog.Size = new System.Drawing.Size(117, 23);
             this.bClearLog.TabIndex = 6;
             this.bClearLog.Text = "Wyczyść log";
             this.bClearLog.UseVisualStyleBackColor = true;
@@ -235,9 +246,9 @@
             // 
             // bSaveLog
             // 
-            this.bSaveLog.Location = new System.Drawing.Point(775, 154);
+            this.bSaveLog.Location = new System.Drawing.Point(128, 116);
             this.bSaveLog.Name = "bSaveLog";
-            this.bSaveLog.Size = new System.Drawing.Size(149, 23);
+            this.bSaveLog.Size = new System.Drawing.Size(184, 23);
             this.bSaveLog.TabIndex = 7;
             this.bSaveLog.Text = "Zapisz log do pliku";
             this.bSaveLog.UseVisualStyleBackColor = true;
@@ -251,18 +262,77 @@
             this.rTBLog.TabIndex = 0;
             this.rTBLog.Text = "";
             // 
+            // bAddToLog
+            // 
+            this.bAddToLog.Location = new System.Drawing.Point(7, 145);
+            this.bAddToLog.Name = "bAddToLog";
+            this.bAddToLog.Size = new System.Drawing.Size(305, 23);
+            this.bAddToLog.TabIndex = 8;
+            this.bAddToLog.Text = "Dodaj do logu";
+            this.bAddToLog.UseVisualStyleBackColor = true;
+            this.bAddToLog.Click += new System.EventHandler(this.bAddToLog_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rLog);
+            this.groupBox3.Controls.Add(this.bAddToLog);
+            this.groupBox3.Controls.Add(this.bClearLog);
+            this.groupBox3.Controls.Add(this.bSaveLog);
+            this.groupBox3.Location = new System.Drawing.Point(606, 2);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(318, 175);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Log";
+            // 
+            // rCustomGraph
+            // 
+            this.rCustomGraph.Location = new System.Drawing.Point(7, 19);
+            this.rCustomGraph.Name = "rCustomGraph";
+            this.rCustomGraph.Size = new System.Drawing.Size(245, 210);
+            this.rCustomGraph.TabIndex = 10;
+            this.rCustomGraph.Text = "";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.bLoadGraph);
+            this.groupBox4.Controls.Add(this.rCustomGraph);
+            this.groupBox4.Location = new System.Drawing.Point(606, 184);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(318, 235);
+            this.groupBox4.TabIndex = 11;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Własny graf";
+            // 
+            // bLoadGraph
+            // 
+            this.bLoadGraph.Location = new System.Drawing.Point(259, 19);
+            this.bLoadGraph.Name = "bLoadGraph";
+            this.bLoadGraph.Size = new System.Drawing.Size(53, 210);
+            this.bLoadGraph.TabIndex = 11;
+            this.bLoadGraph.Text = "Załaduj";
+            this.bLoadGraph.UseVisualStyleBackColor = true;
+            this.bLoadGraph.Click += new System.EventHandler(this.bLoadGraph_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(7, 19);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(245, 210);
+            this.richTextBox1.TabIndex = 10;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 603);
-            this.Controls.Add(this.bSaveLog);
-            this.Controls.Add(this.bClearLog);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.restart);
             this.Controls.Add(this.sfmLcanvas1);
-            this.Controls.Add(this.rLog);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -274,6 +344,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUDsink)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDsource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -300,6 +372,12 @@
         private System.Windows.Forms.Button bClearLog;
         private System.Windows.Forms.Button bSaveLog;
         private System.Windows.Forms.RichTextBox rTBLog;
+        private System.Windows.Forms.Button bAddToLog;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RichTextBox rCustomGraph;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button bLoadGraph;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

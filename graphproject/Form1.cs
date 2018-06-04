@@ -44,14 +44,9 @@ namespace graphproject
             {
                 sfmLcanvas1.Graf = GraphGenerator.Generate((int)NUPvcount.Value, CBdirected.Checked, CBmixed.Checked);
                 NUDsink.Maximum = NUDsource.Maximum = sfmLcanvas1.Graf.GetLength(0);
-                
+
                 NUDsource.Value = NUDsink.Value = 1;
                 sfmLcanvas1.EdmondsKarpMode = false;
-                if (sfmLcanvas1.Source != sfmLcanvas1.Sink)
-                {
-                    rLog.AppendText(sfmLcanvas1.Log);
-                }
-                rLog.ScrollToCaret();
             }
             catch (Exception ex)
             {
@@ -68,17 +63,12 @@ namespace graphproject
         private void NUDsource_ValueChanged(object sender, EventArgs e)
         {
             sfmLcanvas1.Source = (int)NUDsource.Value - 1;
-            if (sfmLcanvas1.Source == sfmLcanvas1.Sink) return;
-            rLog.AppendText(sfmLcanvas1.Log);
-            rLog.ScrollToCaret();
         }
 
         private void NUDsink_ValueChanged(object sender, EventArgs e)
         {
             sfmLcanvas1.Sink = (int)NUDsink.Value - 1;
-            if (sfmLcanvas1.Source == sfmLcanvas1.Sink) return;
-            rLog.AppendText(sfmLcanvas1.Log);
-            rLog.ScrollToCaret();
+
         }
 
         private void bClearLog_Click(object sender, EventArgs e)
@@ -99,6 +89,52 @@ namespace graphproject
                 StreamWriter stream = new StreamWriter(sfd.FileName);
                 stream.WriteLine(rLog.Text);
                 stream.Close();
+            }
+        }
+
+        private void bAddToLog_Click(object sender, EventArgs e)
+        {
+            rLog.AppendText(sfmLcanvas1.Log);
+            rLog.ScrollToCaret();
+        }
+
+        private void bLoadGraph_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] rows = rCustomGraph.Text.Split('\n');
+                int n = rows[0].Split(',').Length;
+                int[,] final = new int[n, n];
+                for (int i = 0; i < final.GetLength(0); i++)
+                {
+                    if (rows[i] != "")
+                    {
+                        string[] numbers = rows[i].Split(',');
+                        for (int j = 0; j < final.GetLength(1); j++)
+                        {
+                            int num = Convert.ToInt16(numbers[j]);
+                            if (i != j)
+                            {
+                                final[i, j] = num;
+                            }
+                        }
+                    }
+                }
+                if (!GraphConsistency.CheckConsistency(final))
+                {
+                    MessageBox.Show("Nie wszystkie wierzchołki grafu są połączone");
+                }
+                else
+                {
+                    sfmLcanvas1.Graf = final;
+                    NUDsink.Maximum = NUDsource.Maximum = sfmLcanvas1.Graf.GetLength(0);
+                    NUDsource.Value = NUDsink.Value = 1;
+                    sfmLcanvas1.EdmondsKarpMode = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Macierz pojemności grafu jest nieprawidłowa");
             }
         }
     }
