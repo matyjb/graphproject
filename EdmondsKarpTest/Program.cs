@@ -15,8 +15,8 @@ namespace graphproject
             do
             {
 
-                string log = string.Format("{0,23}|{1,23}|{2,23}|{3,23}", "Max Flow", "Czas wykonania(ticks)", "Ilość wierzchołków", "Ilość dróg(BFS)");
-                Console.Write("podaj ilosc testu: ");
+                string log = string.Format("{0,23}|{1,23}|{2,23}|{3,23}|{4,23}", "Max Flow", "Czas wykonania(ticks)", "Ilość wierzchołków", "Ilość krawędzi", "Ilość dróg(BFS)");
+                Console.Write("podaj ilosc grafów do losowego wygenerowania i przetestowania: ");
                 int n = Convert.ToInt16(Console.ReadLine());
                 Random rnd = new Random();
                 Console.WriteLine(log);
@@ -34,7 +34,16 @@ namespace graphproject
                     int mf = ek.FindMaxFlow(graf, NeighborsList(graf), source, sink, out var lf);
                     c.Stop();
                     int k = ek.k;
-                    string nowywpis = string.Format("{0,23}|{1,23}|{2,23}|{3,23}", mf, c.ElapsedTicks, graf.GetLength(0),
+                    int kraw = 0;
+                    for (int p = 0; p < graf.GetLength(0); p++)
+                    {
+                        for (int q = p + 1; q < graf.GetLength(1); q++)
+                        {
+                            if (graf[p, q] != 0) kraw++;
+                            if (graf[q, p] != 0 && graf[q, p] != graf[p,q]) kraw++;
+                        }
+                    }
+                    string nowywpis = string.Format("{0,23}|{1,23}|{2,23}|{3,23}|{4,23}", mf, c.ElapsedTicks, graf.GetLength(0), kraw,
                         k);
                     log += Environment.NewLine + nowywpis;
                     Console.WriteLine(nowywpis);
