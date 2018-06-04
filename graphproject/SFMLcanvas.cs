@@ -41,6 +41,7 @@ namespace graphproject
         public int[,] LegalFlows { get; set; }
         public int MaxFlow { get; set; }
         public Time EdmondsKarpAlgoRunTime { get; set; }
+        public int BFSRunAmount { get; set; } = 0;
         public string Log { get; set; } = "";
 
         //przykladowy graf
@@ -111,6 +112,7 @@ namespace graphproject
             MaxFlow = ek.FindMaxFlow(Graf, NeighborsList(), Source, Sink, out var l);
             EdmondsKarpAlgoRunTime = t.ElapsedTime;
             LegalFlows = l;
+            BFSRunAmount = ek.k;
             //log
             //liczenie połączeń
             if(Sink == Source) return;
@@ -124,11 +126,13 @@ namespace graphproject
                 }
             }
             Log = "";
-            Log += "Maksymalny przepływ: " + MaxFlow + Environment.NewLine;
-            Log += "Ilość wierzchołków: " + Graf.GetLength(0) + Environment.NewLine;
-            Log += "Ilość połączeń: " + sum + Environment.NewLine;
-            Log += "Czas wykonania: " + EdmondsKarpAlgoRunTime.AsMicroseconds() + " mikrosekund" + Environment.NewLine;
-            Log += "============================" + Environment.NewLine;
+            //Log += "Maksymalny przepływ: " + MaxFlow + Environment.NewLine;
+            //Log += "Ilość wierzchołków: " + Graf.GetLength(0) + Environment.NewLine;
+            //Log += "Ilość połączeń: " + sum + Environment.NewLine;
+            //Log += "Czas wykonania: " + EdmondsKarpAlgoRunTime.AsMicroseconds() + " mikrosekund" + Environment.NewLine;
+            //Log += "============================" + Environment.NewLine;
+            Log = MaxFlow + ";" + Graf.GetLength(0) + ";" + BFSRunAmount + ";" + EdmondsKarpAlgoRunTime.AsMicroseconds() +
+                  Environment.NewLine;
         }
 
         private void UpdateCamera()

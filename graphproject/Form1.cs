@@ -58,6 +58,7 @@ namespace graphproject
         private void EKbutton_Click(object sender, EventArgs e)
         {
             sfmLcanvas1.EdmondsKarpMode = !sfmLcanvas1.EdmondsKarpMode;
+            EKbutton.Text = sfmLcanvas1.EdmondsKarpMode ? "Ukryj" : "Pokaż";
         }
 
         private void NUDsource_ValueChanged(object sender, EventArgs e)
@@ -73,7 +74,8 @@ namespace graphproject
 
         private void bClearLog_Click(object sender, EventArgs e)
         {
-            rLog.Text = sfmLcanvas1.Log = "";
+            rLog.Text = "Max Flow;Wierzchołków;Drogi;Czas wykonania(mikrosek)" + Environment.NewLine;
+            sfmLcanvas1.Log = "";
         }
 
         private void bSaveLog_Click(object sender, EventArgs e)

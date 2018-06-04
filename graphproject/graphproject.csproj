@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DF49DAD8-03C8-4B2F-ABBE-4FDDDE4E3AFC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>graphproject</RootNamespace>
     <AssemblyName>graphproject</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>

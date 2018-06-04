@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.rLog = new System.Windows.Forms.RichTextBox();
-            this.sfmLcanvas1 = new graphproject.SFMLcanvas();
             this.restart = new System.Windows.Forms.Button();
             this.bgenerate = new System.Windows.Forms.Button();
             this.GenGraphWorker = new System.ComponentModel.BackgroundWorker();
@@ -54,6 +53,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.bLoadGraph = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.sfmLcanvas1 = new graphproject.SFMLcanvas();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUPvcount)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -72,26 +72,13 @@
             this.rLog.TabIndex = 0;
             this.rLog.Text = "";
             // 
-            // sfmLcanvas1
-            // 
-            this.sfmLcanvas1.EdmondsKarpMode = true;
-            this.sfmLcanvas1.Location = new System.Drawing.Point(0, 2);
-            this.sfmLcanvas1.Log = "Maksymalny przepływ: 36\r\nIlość wierzchołków: 6\r\nIlość połączeń: 13\r\n=============" +
-    "===============\r\n";
-            this.sfmLcanvas1.MaxFlow = 36;
-            this.sfmLcanvas1.Name = "sfmLcanvas1";
-            this.sfmLcanvas1.Sink = 4;
-            this.sfmLcanvas1.Size = new System.Drawing.Size(600, 600);
-            this.sfmLcanvas1.Source = 1;
-            this.sfmLcanvas1.TabIndex = 1;
-            // 
             // restart
             // 
-            this.restart.Location = new System.Drawing.Point(606, 550);
+            this.restart.Location = new System.Drawing.Point(813, 550);
             this.restart.Name = "restart";
-            this.restart.Size = new System.Drawing.Size(318, 41);
+            this.restart.Size = new System.Drawing.Size(111, 41);
             this.restart.TabIndex = 2;
-            this.restart.Text = "restart";
+            this.restart.Text = "restart wizualizatora";
             this.restart.UseVisualStyleBackColor = true;
             this.restart.Click += new System.EventHandler(this.restart_Click);
             // 

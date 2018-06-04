@@ -6,6 +6,7 @@ namespace graphproject
     public class EdmondsKarp
     {
         private int n;
+        public int k;
 
         public int FindMaxFlow(
             int[,] capacityMatrix,
@@ -19,10 +20,11 @@ namespace graphproject
             int f = 0; // initial flow is 0
             legalFlows = new int[n, n]; // residual capacity from u to v is capacityMatrix[u,v] - legalFlows[u,v]
 
+            k = -1;
             while (true)
             {
                 int m = BreadthFirstSearch(capacityMatrix, neighbors, source, sink, legalFlows, out var p);
-
+                k++;
                 if (m == 0) break;
                 f += m;
                 // backtrakc search, and write flow
