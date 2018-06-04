@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace graphproject
@@ -74,7 +68,7 @@ namespace graphproject
 
         private void bClearLog_Click(object sender, EventArgs e)
         {
-            rLog.Text = "Max Flow;Wierzchołków;Drogi;Czas wykonania(mikrosek)" + Environment.NewLine;
+            rLog.Text = "Max przepływ;Wierzchołków;Drogi;Czas (mikrosekund)" + Environment.NewLine;
             sfmLcanvas1.Log = "";
         }
 
@@ -102,42 +96,60 @@ namespace graphproject
 
         private void bLoadGraph_Click(object sender, EventArgs e)
         {
-            try
+            if (rCustomGraph.Text != "")
             {
-                string[] rows = rCustomGraph.Text.Split('\n');
-                int n = rows[0].Split(',').Length;
-                int[,] final = new int[n, n];
-                for (int i = 0; i < final.GetLength(0); i++)
+                try
                 {
-                    if (rows[i] != "")
+                    string[] rows = rCustomGraph.Text.Split('\n');
+                    int n = rows[0].Split(',').Length;
+                    int[,] final = new int[n, n];
+                    for (int i = 0; i < final.GetLength(0); i++)
                     {
-                        string[] numbers = rows[i].Split(',');
-                        for (int j = 0; j < final.GetLength(1); j++)
+                        if (rows[i] != "")
                         {
-                            int num = Convert.ToInt16(numbers[j]);
-                            if (i != j)
+                            string[] numbers = rows[i].Split(',');
+                            for (int j = 0; j < final.GetLength(1); j++)
                             {
-                                final[i, j] = num;
+                                int num = Convert.ToInt16(numbers[j]);
+                                if (i != j)
+                                {
+                                    if (num < 0) num = 0;
+                                    final[i, j] = num;
+                                }
+                            }
+                        }
+                    }
+                    if (!GraphConsistency.CheckConsistency(final))
+                    {
+                        MessageBox.Show("Nie wszystkie wierzchołki grafu są połączone");
+                    }
+                    else
+                    {
+                        sfmLcanvas1.Graf = final;
+                        NUDsink.Maximum = NUDsource.Maximum = sfmLcanvas1.Graf.GetLength(0);
+                        NUDsource.Value = NUDsink.Value = 1;
+                        sfmLcanvas1.EdmondsKarpMode = false;
+                        //wypisywanie poprawionego
+                        rCustomGraph.Text = "";
+                        for (int i = 0; i < final.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < final.GetLength(1); j++)
+                            {
+                                rCustomGraph.Text += final[i, j] + (j != final.GetLength(1) - 1 ? "," : "\n");
                             }
                         }
                     }
                 }
-                if (!GraphConsistency.CheckConsistency(final))
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Nie wszystkie wierzchołki grafu są połączone");
-                }
-                else
-                {
-                    sfmLcanvas1.Graf = final;
-                    NUDsink.Maximum = NUDsource.Maximum = sfmLcanvas1.Graf.GetLength(0);
-                    NUDsource.Value = NUDsink.Value = 1;
-                    sfmLcanvas1.EdmondsKarpMode = false;
+                    MessageBox.Show("Macierz pojemności grafu jest nieprawidłowa\nPrzykładowa macierz:\n0,2,4\n2,0,3\n1,2,0\nUjemne elementy i elementy na diagonali zostaną wyzerowane");
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Macierz pojemności grafu jest nieprawidłowa");
-            }
+        }
+
+        private void bTworcy_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Projekt wykonali:\nBartosz Matyjasiak\nZuzanna Gałecka\nMaciej Zwoliński\nKod programu dostępny na:\nhttps://github.com/matyjb/graphproject");
         }
     }
 }

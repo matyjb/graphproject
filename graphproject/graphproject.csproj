@@ -149,6 +149,7 @@
     </Content>
     <Content Include="..\SFML.NET\extlibs\csfml-system-2.dll">
       <Link>csfml-system-2.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\SFML.NET\extlibs\csfml-window-2.dll">
       <Link>csfml-window-2.dll</Link>

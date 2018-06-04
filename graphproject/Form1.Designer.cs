@@ -54,6 +54,7 @@
             this.bLoadGraph = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.sfmLcanvas1 = new graphproject.SFMLcanvas();
+            this.bTworcy = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUPvcount)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -74,9 +75,9 @@
             // 
             // restart
             // 
-            this.restart.Location = new System.Drawing.Point(813, 550);
+            this.restart.Location = new System.Drawing.Point(606, 550);
             this.restart.Name = "restart";
-            this.restart.Size = new System.Drawing.Size(111, 41);
+            this.restart.Size = new System.Drawing.Size(200, 41);
             this.restart.TabIndex = 2;
             this.restart.Text = "restart wizualizatora";
             this.restart.UseVisualStyleBackColor = true;
@@ -309,11 +310,35 @@
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "";
             // 
+            // sfmLcanvas1
+            // 
+            this.sfmLcanvas1.BFSRunAmount = 2;
+            this.sfmLcanvas1.EdmondsKarpMode = false;
+            this.sfmLcanvas1.Location = new System.Drawing.Point(0, 0);
+            this.sfmLcanvas1.Log = "";
+            this.sfmLcanvas1.MaxFlow = 36;
+            this.sfmLcanvas1.Name = "sfmLcanvas1";
+            this.sfmLcanvas1.Sink = 4;
+            this.sfmLcanvas1.Size = new System.Drawing.Size(600, 600);
+            this.sfmLcanvas1.Source = 1;
+            this.sfmLcanvas1.TabIndex = 12;
+            // 
+            // bTworcy
+            // 
+            this.bTworcy.Location = new System.Drawing.Point(813, 550);
+            this.bTworcy.Name = "bTworcy";
+            this.bTworcy.Size = new System.Drawing.Size(111, 41);
+            this.bTworcy.TabIndex = 13;
+            this.bTworcy.Text = "Twórcy projektu";
+            this.bTworcy.UseVisualStyleBackColor = true;
+            this.bTworcy.Click += new System.EventHandler(this.bTworcy_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 603);
+            this.Controls.Add(this.bTworcy);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -321,7 +346,7 @@
             this.Controls.Add(this.restart);
             this.Controls.Add(this.sfmLcanvas1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Maksymalny przepływ w grafie - algorytm Edmondsa-Karpa";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -365,6 +390,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button bLoadGraph;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button bTworcy;
     }
 }
 
