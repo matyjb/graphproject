@@ -18,11 +18,24 @@ namespace graphproject
                 string log = string.Format("{0,23}|{1,23}|{2,23}|{3,23}|{4,23}", "Max Flow", "Czas wykonania(ticks)", "Ilość wierzchołków", "Ilość krawędzi", "Ilość dróg(BFS)");
                 Console.Write("podaj ilosc grafów do losowego wygenerowania i przetestowania: ");
                 int n = Convert.ToInt16(Console.ReadLine());
+                Console.Write("podaj poziom trudnosci[E/M/H]: ");
+                string poziom = Console.ReadLine();
                 Random rnd = new Random();
                 Console.WriteLine(log);
                 for (int i = 0; i < n; i++)
                 {
-                    int[,] graf = GraphGenerator.Generate(rnd.Next(4, 150), true);
+                    int min=90, max=150;
+                    if (poziom.ToLower() == "e")
+                    {
+                        min = 4;
+                        max = 50;
+                    }
+                    if (poziom.ToLower() == "m")
+                    {
+                        min = 50;
+                        max = 90;
+                    }
+                    int[,] graf = GraphGenerator.Generate(rnd.Next(min, max), true);
                     EdmondsKarp ek = new EdmondsKarp();
                     int sink = 0, source = 0;
                     while (sink == source)
